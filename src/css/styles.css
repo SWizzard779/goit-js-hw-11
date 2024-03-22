@@ -67,7 +67,7 @@ height: 40px;
 
 .gallery-item {
 padding-top: 10px;
-width: calc((100% - 30px)/3);
+width: calc((100% - 40px)/4);
 
 
 }
