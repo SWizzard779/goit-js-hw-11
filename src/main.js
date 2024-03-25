@@ -22,6 +22,7 @@ form.addEventListener('submit', handleSubmit)
 function handleSubmit(event) {
     event.preventDefault();
     const inputValue = event.currentTarget.elements.input.value.trim();
+    gallery.innerHTML = '';
     if(!inputValue){
         iziToast.warning({
             title: 'Caution',
@@ -51,11 +52,20 @@ function handleSubmit(event) {
         }).refresh()
     })
     .catch(error => {
-        iziToast.error({
+        hideLoader();
+        if(error.name === "TypeError" && error.message.includes("Failed to fetch")){
+            iziToast.error({
+                title: 'Network Error',
+                message: 'Unable to connect. Please check your internet connection and try again.',
+                position: 'topCenter'
+            })
+        }else {
+            iziToast.error({
             title: 'Error',
-            message: `Failed to load images. Please try again later. Error: ${error.message}`,
+            message: `Error: ${error.message}`,
             position: 'topCenter'
         });
+        }
     })
 
     form.reset()
